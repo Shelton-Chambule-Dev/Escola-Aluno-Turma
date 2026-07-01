@@ -1,9 +1,8 @@
-package com.escola.chambule.models;
+package escola.models;
 import java.util.Objects;
-public class AlunoModel extends DisciplinasModel {
+public class AlunoModel extends  DisciplinasModel {
 
-    private Integer id;
-    private Integer codigoAluno;
+    private Integer id_aluno;
     private String nome;
     private String curso ;
     private Integer anoCurso;
@@ -12,30 +11,23 @@ public class AlunoModel extends DisciplinasModel {
     public AlunoModel(){}
 
     public AlunoModel(Integer codigoAluno,double mediaAtual){
-        this.codigoAluno = codigoAluno;
         this.mediaAtual = mediaAtual;
     }
 
-    public AlunoModel(Integer id, Integer codigoAluno, String nome, String curso, Integer anoCurso, double mediaAtual) {
-        this.id = id;
-        this.codigoAluno = codigoAluno;
+    public AlunoModel(Integer id_aluno,String nome, String curso, Integer anoCurso, double mediaAtual, Integer id_disciplina, String nomeDisciplina) {
+        super(id_disciplina, nomeDisciplina);
+        this.id_aluno = id_aluno;
         this.nome = nome;
         this.curso = curso;
         this.anoCurso = anoCurso;
         this.mediaAtual = mediaAtual;
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getId_aluno() {
+        return id_aluno;
     }
-    public void setId(Integer id) {
-        this.id = id;
-    }
-    public Integer getCodigoAluno() {
-        return codigoAluno;
-    }
-    public void setCodigoAluno(Integer codigoAluno) {
-        this.codigoAluno = codigoAluno;
+    public void setId_aluno(Integer id) {
+        this.id_aluno = id;
     }
     public String getNome() {
         return nome;
@@ -66,15 +58,10 @@ public class AlunoModel extends DisciplinasModel {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         AlunoModel that = (AlunoModel) o;
-        return Objects.equals(codigoAluno, that.codigoAluno);
+        return Objects.equals(id_aluno, that.id_aluno);
     }
     @Override
     public int hashCode() {
-        return Objects.hashCode(codigoAluno);
-    }
-
-    @Override
-    public String toString() {
-        return "Codigo: "+getCodigoAluno()+"\n"+"Nome do Aluno: "+getNome()+"\n"+"Curso: "+getCurso()+"\n"+"Ano curso: "+getAnoCurso()+"\n"+"Media Atual: "+getMediaAtual();
+        return Objects.hashCode(id_aluno);
     }
 }

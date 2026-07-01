@@ -1,4 +1,4 @@
-package com.escola.chambule.exceptions;
+package escola.exceptions;
 public class TurmaException extends RuntimeException {
 
     public TurmaException(String message) {
