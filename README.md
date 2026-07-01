@@ -1,8 +1,8 @@
-# Escola
+ Escola
 
 Projeto de estudo em Java com foco em persistência de dados utilizando **JDBC puro**, como preparação para a futura migração para **JPA/Hibernate**. A aplicação simula o gerenciamento de alunos (turma) e disciplinas de uma escola, implementando as operações básicas de CRUD (Create, Read, Update, Delete) diretamente sobre um banco de dados MySQL.
 
-## ✨ Objetivo
+✨ Objetivo
 
 Este repositório foi criado como prática de:
 
@@ -12,21 +12,21 @@ Este repositório foi criado como prática de:
 - Gerenciamento de dependências com Maven.
 - Primeiros passos rumo à persistência de dados com JPA/Hibernate.
 
-## 🛠️ Tecnologias
+🛠️ Tecnologias
 
 - **Java 25**
 - **Maven** (gerenciamento de dependências e build)
 - **MySQL** (banco de dados relacional)
 - **MySQL Connector/J** `8.0.33`
 
-## 📁 Estrutura do projeto
+📁 Estrutura do projeto
 
 ```
-com.escola.chambule
+escola
 ├── controller
 │   └── Main.java
 ├── DataBase
-│   └── DataBaseConnetiom.java     # Conexão Singleton com o banco
+│   └── DataBaseConnection.java    # Conexão Singleton com o banco
 ├── exceptions
 │   └── TurmaException.java        # Exceção customizada (RuntimeException)
 ├── models
@@ -40,7 +40,7 @@ com.escola.chambule
     └── DisciplinaServices.java    # Implementação JDBC de DisciplinaRepository
 ```
 
-## 🗄️ Modelo de dados
+🗄️ Modelo de dados
 
 O banco de dados é composto por duas tabelas relacionadas: `turma` (alunos) e `disciplina`, com uma chave estrangeira ligando cada aluno à disciplina em que está matriculado.
 
@@ -55,7 +55,7 @@ CREATE TABLE turma(
     nome_aluno VARCHAR(50) NOT NULL,
     nome_curso VARCHAR(50) NOT NULL,
     ano_curso INT NOT NULL,
-    media_atual INT NOT NULL,
+    media_atual DECIMAL(4,2) NOT NULL,
     disciplina_Id BIGINT UNSIGNED,
     nome_disciplna VARCHAR(50) NOT NULL,
     FOREIGN KEY (disciplina_Id) REFERENCES disciplina(Id_disciplina)
@@ -63,6 +63,13 @@ CREATE TABLE turma(
 ```
 
 > ⚠️ Atenção: crie primeiro a tabela `disciplina` e depois `turma`, já que esta última depende da chave estrangeira `disciplina_Id`.
+
+> 📌 A coluna `media_atual` usa `DECIMAL(4,2)` para permitir médias com casas decimais (ex: `12.5`, `15.75`), refletindo o tipo `double` já usado em `AlunoModel`.
+>
+> Se você já tem a tabela criada com `media_atual INT`, migre os dados existentes com:
+> ```sql
+> ALTER TABLE turma MODIFY media_atual DECIMAL(4,2) NOT NULL;
+> ```
 
 ⚙️ Configuração
 
@@ -82,7 +89,7 @@ USE escola;
 
 3. Configurar a conexão
 
-A classe `DataBaseConnetiom` centraliza a conexão com o banco através do padrão **Singleton**:
+A classe `DataBaseConnection` centraliza a conexão com o banco através do padrão **Singleton**:
 
 ```java
 private String url = "jdbc:mysql://localhost:3306/escola";
@@ -107,7 +114,7 @@ Ajuste `url`, `user` e `password` de acordo com o seu ambiente local.
 
 ```bash
 mvn clean install
-mvn exec:java -Dexec.mainClass="com.escola.chambule.controller.Main"
+mvn exec:java -Dexec.mainClass="escola.controller.Main"
 ```
 
 🚀 Funcionalidades
@@ -126,7 +133,7 @@ mvn exec:java -Dexec.mainClass="com.escola.chambule.controller.Main"
 | `alterarNomeAluno(AlunoModel)` | Atualiza apenas o nome do aluno |
 | `alterarMedia(AlunoModel)` | Atualiza apenas a média do aluno |
 
-### Disciplina (`DisciplinaRepository`)
+Disciplina (`DisciplinaRepository`)
 
 | Método | Descrição |
 |---|---|
@@ -146,5 +153,6 @@ Projeto de estudo desenvolvido para prática de persistência de dados em Java.
 ## 📄 Licença
 
 Este projeto está sob a licença definida no arquivo `LICENSE`.
+
 
 
