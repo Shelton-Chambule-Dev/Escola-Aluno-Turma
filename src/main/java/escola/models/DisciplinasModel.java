@@ -1,10 +1,23 @@
 package escola.models;
+import javax.persistence.*;
+import java.util.List;
+
+@Entity
+@Table(name = "disciplina")
 public class DisciplinasModel {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+    @Column(name = "id_disciplina")
     private Integer id_disciplina;
+
+    @Column(name = "Nome_disciplina")
     private String nomeDisciplina;
 
-    public DisciplinasModel(){}
+    @OneToMany
+    @JoinColumn(name = "codigo_Aluno")
+    private List<AlunoModel> alunoModels;
 
     public DisciplinasModel(Integer id_disciplina,String nomeDisciplina) {
         this.id_disciplina = id_disciplina;

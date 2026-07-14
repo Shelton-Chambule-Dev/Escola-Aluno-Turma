@@ -1,26 +1,43 @@
 package escola.models;
+import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
-public class AlunoModel extends  DisciplinasModel {
 
+@Entity
+@Table(name = "Aluno")
+public class AlunoModel {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id_aluno;
+
+    @Column(name = "nome")
     private String nome;
+
+    @Column(name = "curso")
     private String curso ;
+
+    @Column(name = "Ano_curso")
     private Integer anoCurso;
+
+    @Column(name = "Media_atual")
     private double mediaAtual;
 
-    public AlunoModel(){}
+    @OneToMany
+    @JoinColumn(name = "Disicplinas")
+    private List<DisciplinasModel> disciplinasModels;
 
     public AlunoModel(Integer codigoAluno,double mediaAtual){
         this.mediaAtual = mediaAtual;
     }
 
-    public AlunoModel(Integer id_aluno,String nome, String curso, Integer anoCurso, double mediaAtual, Integer id_disciplina, String nomeDisciplina) {
-        super(id_disciplina, nomeDisciplina);
+    public AlunoModel(Integer id_aluno, String nome, String curso, Integer anoCurso, double mediaAtual, List<DisciplinasModel> disciplinasModels) {
         this.id_aluno = id_aluno;
         this.nome = nome;
         this.curso = curso;
         this.anoCurso = anoCurso;
         this.mediaAtual = mediaAtual;
+        this.disciplinasModels = disciplinasModels;
     }
 
     public Integer getId_aluno() {

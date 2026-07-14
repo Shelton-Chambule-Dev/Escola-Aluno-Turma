@@ -4,10 +4,10 @@ import java.util.Optional;
 import java.util.Set;
 public interface TurmaRepository {
 
-    public Boolean save(AlunoModel alunoModel);
+    public void  save(AlunoModel alunoModel);
     public Optional<AlunoModel> findById(Integer codigoAluno);
-    public AlunoModel update(AlunoModel alunoModel);
-    public Optional<AlunoModel> remove(Integer codigo);
+    public void  update(AlunoModel alunoModel);
+    public Optional<AlunoModel> removeById(Integer codigo);
     public int numeroTotalAluno();
     public Set<AlunoModel> findAll();
     public Set<AlunoModel> mediaSuperior(double media);
